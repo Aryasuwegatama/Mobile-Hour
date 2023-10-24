@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include("partials/head.ejs") %>
+  <title>Edit Staff</title>
+</head>
+<body>
+  <%- include("partials/navbar.ejs") %>
+
+  <h2 class="text-center m-4">Edit Staff Account</h2>
+
+  <!-- Form for editing staff information -->
+  <div class="container-sm shadow border border-warning p-5 rounded-3">
+    <form action="/update-staff/<%= staff.id %>" method="post">
+      <div class="row mb-3">
+        <div class="col">
+          <label for="edit_firstname" class="form-label">First Name</label>
+          <input type="text" class="form-control" id="edit_firstname" name="firstname" value="<%= staff.firstname %>" pattern="^[a-zA-Z-]+( [a-zA-Z-]+)*$" required />
+          <div class="invalid-feedback" id="edit-firstname-feedback"></div>
+        </div>
+        <div class="col">
+          <label for="edit_lastname" class="form-label">Last Name</label>
+          <input type="text" class="form-control" id="edit_lastname" name="lastname" value="<%= staff.lastname %>" required pattern="^[a-zA-Z-]+( [a-zA-Z-]+)*$*" />
+          <div class="invalid-feedback" id="edit-lastname-feedback"></div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="staff_role" class="form-label">Staff Role</label>
+          <select class="form-select" id="staff_role" name="staff_role" required>
+            <option selected="" disabled="" value="">Choose Role</option>
+            <option value="manager" <% if (staff.staff_role === 'manager') { %>selected<% } %>>Manager</option>
+            <option value="staff" <% if (staff.staff_role === 'staff') { %>selected<% } %>>Staff</option>
+          </select>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col">
+          <label for="edit_username" class="form-label">Username</label>
+          <input type="text" class="form-control" id="edit_username" name="username" value="<%= staff.username %>" required pattern="[a-z]+" />
+          <div class="invalid-feedback" id="edit-username-feedback"></div>
+        </div>
+        <div class="col">
+          <label for="edit_password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="edit_password" name="password" value="<%= staff.password %>" required pattern="(?=.*[a-z]).{6,}" />
+          <div class="invalid-feedback" id="edit-password-feedback"></div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Update Staff</button>
+      <a href="/staff_admin" class="btn btn-secondary my-3">Back to Staff Admin</a>
+    </form>
+  </div>
+
+  <%- include("partials/footer.ejs") %>
+
+
+  <!-- partials for all scripts tag -->
+  <%- include("partials/script.ejs") %>
+
+  <!-- Script for Validation -->
+  <script>
+    // console.log("Edit staff page script is running.");
+
+    const editFirstnameInput = document.getElementById('edit_firstname');
+    const editLastnameInput = document.getElementById('edit_lastname');
+    const editUsernameInput = document.getElementById('edit_username');
+    const editPasswordInput = document.getElementById('edit_password');
+
+    editFirstnameInput.addEventListener('input', function (event) {
+      validateInput(event.target, 'edit-firstname-feedback', /^[a-zA-Z-]{1,}( [a-zA-Z-]{1,})*$/, 'First name must be letters');
+    });
+
+    editLastnameInput.addEventListener('input', function (event) {
+      validateInput(event.target, 'edit-lastname-feedback', /^[a-zA-Z-]{1,}( [a-zA-Z-]{1,})*$/, 'Last name must be letters');
+    });
+
+    editUsernameInput.addEventListener('input', function (event) {
+      if (!event.target.value) {
+        validateInput(event.target, 'edit-username-feedback', /^[a-z]+$/, 'Username must be in lowercase letter');
+      } else {
+        validateInput(event.target, 'edit-username-feedback', /^[a-z]+$/, 'Looks good!');
+      }
+    });
+
+    editPasswordInput.addEventListener('input', function (event) {
+      if (!event.target.value || event.target.value.length < 6) {
+        validateInput(event.target, 'edit-password-feedback', /^(?=.*[a-z]).{6,}$/, 'Password must be contain at least 6 characters long with lowercase letter');
+      } else {
+        validateInput(event.target, 'edit-password-feedback', /^(?=.*[a-z]).{6,}$/, 'Looks good!');
+      }
+    });
+
+    function validateInput(input, feedbackId, regex, message) {
+      const feedback = document.getElementById(feedbackId);
+      if (!input.value || !regex.test(input.value)) {
+        input.classList.add('is-invalid');
+        input.classList.remove('is-valid');
+        feedback.classList.remove('valid-feedback');
+        feedback.classList.add('invalid-feedback');
+        feedback.textContent = message;
+      } else {
+        input.classList.remove('is-invalid');
+        input.classList.add('is-valid');
+        feedback.classList.remove('invalid-feedback');
+        feedback.classList.add('valid-feedback');
+        feedback.textContent = 'Looks good!';
+      }
+    }
+  </script>
+</body>
+</html>

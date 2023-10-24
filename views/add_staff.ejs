@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("partials/head.ejs") %>
+    <title>Add New Staff</title>
+  </head>
+  <body>
+    <%- include("partials/navbar.ejs") %>
+
+    <h2 class="text-center m-4">Add New Staff</h2>
+
+    <!-- Form for adding a new staff member -->
+    <div class="container-sm shadow border border-primary p-5 rounded-3">
+      <form action="/add_staff" method="post">
+        <div class="row mb-3">
+          <div class="col">
+            <label for="firstname" class="form-label">First Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="firstname"
+              name="firstname"
+              pattern="[a-zA-Z-]{1,}( [a-zA-Z-]{1,})*"
+              required
+            />
+            <div class="invalid-feedback" id="firstname-feedback"></div>
+          </div>
+          <div class="col">
+            <label for="lastname" class="form-label">Last Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="lastname"
+              name="lastname"
+              pattern="[a-zA-Z-]{1,}( [a-zA-Z-]{1,})*"
+              required
+            />
+            <div class="invalid-feedback" id="lastname-feedback"></div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="staff_role" class="form-label">Staff Role</label>
+            <select
+              class="form-select"
+              id="staff_role"
+              name="staff_role"
+              required
+            >
+              <option selected="" disabled="" value="">Choose Role</option>
+              <option value="manager">Manager</option>
+              <option value="staff">Staff</option>
+            </select>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <label for="username" class="form-label">Username</label>
+            <input
+              type="text"
+              class="form-control"
+              id="username"
+              name="username"
+              pattern="[a-z]+"
+              required
+            />
+            <div class="invalid-feedback" id="username-feedback"></div>
+          </div>
+          <div class="col">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+              required
+              pattern="(?=.*[a-z]).{6,}"
+            />
+            <div class="invalid-feedback" id="password-feedback"></div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary my-2">Add Staff</button>
+        <a href="/staff_admin" class="btn btn-secondary mx-3"
+          >Back to Staff Admin</a
+        >
+      </form>
+    </div>
+
+    <%- include("partials/footer.ejs") %>
+
+    <!-- partials for all scripts tag -->
+    <%- include("partials/script.ejs") %>
+  </body>
+</html>

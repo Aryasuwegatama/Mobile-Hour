@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("partials/head.ejs") %>
+    <title>Add New Product</title>
+  </head>
+  <body>
+    <%- include("partials/navbar.ejs") %>
+
+    <h1 class="text-center my-5">Add New Product</h1>
+    <!-- notification -->
+    <% if (typeof notification != "undefined") { %>
+    <div class="position-fixed top-3 end-0 p-3" style="z-index: 5">
+      <div
+        class="alert alert-success alert-dismissible fade show notification"
+        role="alert"
+      >
+        <%= notification %>
+
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+      </div>
+    </div>
+    <% } %>
+
+    <!-- add product form -->
+    <div class="container-md border border-primary p-5 shadow rounded-3">
+      <form action="/add_product" method="POST">
+        <div class="row">
+          <div class="col-md-4 border-bottom">
+            <!-- Product Information -->
+            <div class="mb-3">
+              <label for="product_name" class="form-label">Product Name:</label>
+              <input
+                type="text"
+                class="form-control"
+                name="product_name"
+                id="product_name"
+                placeholder="Enter product name"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="product_brand" class="form-label"
+                >Product Brand:</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                name="product_brand"
+                id="product_brand"
+                placeholder="(e.g., Apple or Samsung)"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="color" class="form-label">Color:</label>
+              <input
+                type="text"
+                class="form-control"
+                name="color"
+                id="color"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="price" class="form-label">Price:</label>
+              <input
+                type="number"
+                class="form-control"
+                name="price"
+                id="price"
+                placeholder="(e.g., 1999 or 999)"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="stock_quantity" class="form-label"
+                >Stock Quantity:</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                name="stock_quantity"
+                id="stock_quantity"
+                min="0"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-4 py-4 border-start border-top border-bottom">
+            <!-- Feature Information -->
+            <div class="mb-3">
+              <label for="weight" class="form-label">Weight:</label>
+              <input
+                type="number"
+                class="form-control"
+                name="weight"
+                id="weight"
+                min="0"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="dimensions" class="form-label">Dimensions:</label>
+              <input
+                type="text"
+                class="form-control"
+                name="dimensions"
+                id="dimensions"
+                placeholder="(e.g., 160.7 x 77.6 x 7.9)"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="OS" class="form-label">Operating System:</label>
+              <input
+                type="text"
+                class="form-control"
+                name="OS"
+                id="OS"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="screensize" class="form-label">Screen Size:</label>
+              <input
+                type="text"
+                class="form-control"
+                name="screensize"
+                id="screensize"
+                pattern="\d+(\.\d{1,2})?"
+                title="Enter a valid screen size (e.g., 6.1 or 6.75)"
+                placeholder="(e.g., 6.1 or 6.75)"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="resolution" class="form-label">Resolution:</label>
+              <input
+                type="text"
+                class="form-control"
+                name="resolution"
+                id="resolution"
+                placeholder="(e.g., 1290 x 2796)"
+                required
+              />
+            </div>
+          </div>
+          <div class="col-md-4 py-4 border-top border-end border-bottom">
+            <div class="mb-3">
+              <label for="chipset" class="form-label">Chipset:</label>
+              <input
+                type="text"
+                class="form-control"
+                name="chipset"
+                id="chipset"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="ram" class="form-label">RAM:</label>
+              <input
+                type="number"
+                class="form-control"
+                name="ram"
+                id="ram"
+                min="0"
+                placeholder="0"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="storage_capacity" class="form-label"
+                >Storage Capacity:</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                name="storage_capacity"
+                id="storage_capacity"
+                min="0"
+                placeholder="(e.g., 128 or 256)"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="battery_capacity" class="form-label"
+                >Battery Capacity:</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                name="battery_capacity"
+                id="battery_capacity"
+                min="0"
+                placeholder="(e.g., 4500)"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="rear_camera" class="form-label">Rear Camera:</label>
+              <input
+                type="text"
+                class="form-control"
+                name="rear_camera"
+                id="rear_camera"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="front_camera" class="form-label">Front Camera:</label>
+              <input
+                type="text"
+                class="form-control"
+                name="front_camera"
+                id="front_camera"
+                required
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-center py-3 border-bottom">
+          <button class="btn btn-primary mx-1" type="submit">
+            Add Product
+          </button>
+          <div class="text-center btn p-0 mx-1">
+            <a href="/product_admin" class="btn btn-secondary">Back</a>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <%- include("partials/footer.ejs") %>
+
+    <!-- partials for all scripts tag -->
+    <%- include("partials/script.ejs") %>
+  </body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("partials/head.ejs") %>
+    <title>HOMEPAGE</title>
+  </head>
+  <body>
+    <%- include("partials/navbar.ejs") %>
+    <div class="container-sm my-5">
+      <div class="row row-cols-1 row-cols-md-3 g-4 product">
+        <% for (let product of products) { %>
+        <div class="col p-4">
+          <div class="card p-4 shadow-sm">
+            <img
+              src="img/product-sample.png"
+              class="card-img-top img-thumbnail"
+              alt="Product Image"
+            />
+            <div class="card-body">
+              <h5 class="card-title">
+                <%= product.product_brand %> <%= product.product_name %> <%=
+                product.storage_capacity %>GB <%= product.color %>
+              </h5>
+              <h4 class="card-text">
+                <strong>$<%= product.price %></strong>
+              </h4>
+              <a
+                href="/product_details/<%= product.product_id %>"
+                class="btn btn-primary"
+                >View Product</a
+              >
+            </div>
+          </div>
+        </div>
+        <% } %>
+      </div>
+    </div>
+
+    <%- include("partials/footer.ejs") %>
+    <!-- partials for all scripts tag -->
+    <%- include("partials/script.ejs") %>
+
+    <script>
+      function productListBrand(brandName) {
+        fetch(`/homepage/brand?type=${brandName}`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            const productContainer = document.querySelector(".product");
+            productContainer.innerHTML = "";
+            data.forEach((product) => {
+              const cardColumn = document.createElement("div");
+              cardColumn.classList.add("col", "p-4");
+              cardColumn.innerHTML = `
+                <div class="card p-4">
+                  <img
+                    src="img/product-sample.png"
+                    class="card-img-top img-thumbnail"
+                    alt="Product Image"
+                  />
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      ${product.product_brand} ${product.product_name} ${product.storage_capacity}GB ${product.color}
+                    </h5>
+                    <h4 class="card-text">
+                      <strong>$${product.price}</strong>
+                    </h4>
+                    <a
+                      href="/product_details/${product.product_id}"
+                      class="btn btn-primary"
+                    >
+                      View Product
+                    </a>
+                  </div>
+                </div>
+              `;
+              productContainer.appendChild(cardColumn);
+            });
+
+            const allProductBtnCon = document.querySelector(".show-button");
+            if (!allProductBtnCon) {
+              const showAllButton = document.createElement("div");
+              showAllButton.classList.add("show-button");
+              showAllButton.innerHTML = `
+                <button onclick="window.location.href = '/homepage'" class="btn btn-secondary mt-3">Show All Products</button>
+              `;
+              productContainer.parentNode.insertBefore(
+                showAllButton,
+                productContainer
+              );
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+    </script>
+  </body>
+</html>

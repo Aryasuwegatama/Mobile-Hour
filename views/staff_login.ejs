@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("partials/head.ejs") %>
+    <title>staff login</title>
+  </head>
+  <body>
+    <%- include("partials/navbar.ejs") %>
+
+    <main class="m-4">
+      <div
+        class="container d-flex justify-content-center align-items-center"
+        style="min-height: 80vh"
+      >
+        <div class="border p-4 rounded shadow" style="max-width: 400px">
+          <h1 class="text-center mb-4">Staff Login</h1>
+          <form action="/staff_login" method="POST">
+            <div class="mb-3">
+              <label for="username" class="form-label">Username:</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                class="form-control"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="password" class="form-label">Password:</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-control"
+                required
+              />
+            </div>
+
+            <div class="text-center">
+              <button class="btn btn-primary mx-1" type="submit">Login</button>
+              <a href="/homepage" class="btn btn-secondary mx-1">Homepage</a>
+            </div>
+          </form>
+
+          <!-- Alert Status -->
+
+          <% if (typeof message != "undefined") { %>
+          <div
+            id="status"
+            class="alert alert-warning alert-dismissible show my-2"
+            role="alerts"
+          >
+            <h4><%= status %></h4>
+            <p><%= message %></p>
+
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="alert"
+              aria-label="Close"
+            ></button>
+          </div>
+          <% } %>
+        </div>
+      </div>
+    </main>
+
+    <%- include("partials/footer.ejs") %>
+
+    <!-- Partials for all scripts tag -->
+    <%- include("partials/script.ejs") %>
+  </body>
+</html>
